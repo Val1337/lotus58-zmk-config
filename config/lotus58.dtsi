@@ -1,0 +1,38 @@
+/ {
+    chosen {
+        zmk,display = &oled;
+    };
+
+    // Custom status screen widget to show layer info
+    custom_status: custom_status {
+        compatible = "zmk,widget-layer-status";
+        label = "CUSTOM_STATUS";    // This is optional
+    };
+};
+
+&oled {
+    status = "okay";
+
+    // Define the display widgets and their position
+    display_widgets {
+        compatible = "zmk,display-widgets";
+        
+        // Add layer status to the top
+        layer_status_widget: layer_status_widget {
+            compatible = "zmk,widget-layer-status";
+            position = <0 0>;       // x=0, y=0 position
+        };
+
+        // Optional: Add other widgets below
+        keyboard_status: keyboard_status {
+            compatible = "zmk,widget-battery-status";
+            position = <0 16>;      // Below the layer status
+        };
+
+        // Optional: Add output status (USB/BLE)
+        output_status: output_status {
+            compatible = "zmk,widget-output-status";
+            position = <0 32>;      // Below the battery status
+        };
+    };
+};
