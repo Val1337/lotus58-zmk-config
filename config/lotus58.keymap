@@ -2,22 +2,22 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
-
+#define AS(keycode) &as LS(keycode) keycode
 / {
+    chosen {
+        zmk,display = &oled;
+    };
+
     behaviors {
         as: auto_shift {
             compatible = "zmk,behavior-hold-tap";
             label = "AUTO_SHIFT";
             #binding-cells = <2>;
-            tapping_term_ms = <200>;
+            tapping_term_ms = <135>;
             quick_tap_ms = <0>;
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
-    };
-
-    chosen {
-        zmk,display = &oled;
     };
 
     // Display configuration
@@ -32,10 +32,10 @@
         default_layer {
             label = "BASE";
             bindings = <
-                &kp ESC    &as LSHFT N1 &as LSHFT N2 &as LSHFT N3 &as LSHFT N4 &as LSHFT N5                               &as LSHFT N6 &as LSHFT N7 &as LSHFT N8 &as LSHFT N9 &as LSHFT N0 &as LSHFT MINUS
-                &kp TAB    &as LSHFT Q  &as LSHFT W  &as LSHFT E  &as LSHFT R  &as LSHFT T                                &as LSHFT Y  &as LSHFT U  &as LSHFT I  &as LSHFT O  &as LSHFT P  &as LSHFT LBKT
-                &kp CAPS   &as LSHFT A  &as LSHFT S  &as LSHFT D  &as LSHFT F  &as LSHFT G  &kp C_PP         &kp C_PP     &as LSHFT H  &as LSHFT J  &as LSHFT K  &as LSHFT L  &as LSHFT SEMI &as LSHFT SQT
-                &mt LCTRL LEFT &as LSHFT Z &as LSHFT X &as LSHFT C &as LSHFT V &as LSHFT B  &kp DOWN         &kp UP       &as LSHFT N  &as LSHFT M  &as LSHFT COMMA &as LSHFT DOT &as LSHFT FSLH &mt RCTRL RIGHT
+                &kp ESC    &kp N1   &kp N2   &kp N3   &kp N4   &kp N5                               &kp N6   &kp N7   &kp N8    &kp N9   &kp N0    &kp MINUS
+                &kp TAB    AS(Q)    AS(W)    AS(E)    AS(R)    AS(T)                                AS(Y)    AS(U)    AS(I)     AS(O)    AS(P)     AS(LBKT)
+                &kp CAPS   AS(A)    AS(S)    AS(D)    AS(F)    AS(G)    &kp C_PP         &kp C_PP  AS(H)    AS(J)    AS(K)     AS(L)    AS(SEMI)  AS(SQT)
+                &mt LCTRL LEFT AS(Z) AS(X)   AS(C)    AS(V)    AS(B)    &kp DOWN         &kp UP    AS(N)    AS(M)    &kp COMMA &kp DOT  AS(FSLH)  &mt RCTRL RIGHT
                                             &kp LALT  &mo 1    &kp LGUI &mt LSHFT SPACE  &mt RSHFT RET &mt RGUI BSPC &mo 2    &kp RALT
             >;
 
