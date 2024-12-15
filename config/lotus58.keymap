@@ -2,6 +2,50 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
+
+// Lotus58 Keyboard with 58 keys split design
+// Features: OLED displays, 2 rotary encoders, 3 layers, auto-shift
+// Bluetooth and USB connectivity with status display and battery indication
+
+// Base Layer:
+// ,-----------------------------------------.                              ,-----------------------------------------.
+// | ESC  |  1   |  2   |  3   |  4   |  5   |                            |  6   |  7   |  8   |  9   |  0   |  -   |
+// |------+------+------+------+------+------|                            |------+------+------+------+------+------|
+// | Tab  |  Q   |  W   |  E   |  R   |  T   |                            |  Y   |  U   |  I   |  O   |  P   |  [   |
+// |------+------+------+------+------+------+-------------.  ,------------+------+------+------+------+------+------|
+// | Caps |  A   |  S   |  D   |  F   |  G   | Play/Pause |  | Play/Pause|  H   |  J   |  K   |  L   |  ;   |  '   |
+// |------+------+------+------+------+------+------+------|  |------+----+------+------+------+------+------+------|
+// | Ctrl |  Z   |  X   |  C   |  V   |  B   | Down |  Up  |  |  Up  |Down|  N   |  M   |  ,   |  .   |  /   |Ctrl |
+// `----------------------------------------+------+------+--|  |--+------+------+-----------------------------------------'
+//                                   | Alt  |Lower |  GUI | Space| Enter| Bksp |Raise | Alt  |
+//                                   `--------------------+------+------+------'
+
+// Lower Layer:
+// ,-----------------------------------------.                              ,-----------------------------------------.
+// |      |      |      |      |      |      |                            |      |      |      |      |      |      |
+// |------+------+------+------+------+------|                            |------+------+------+------+------+------|
+// |      |      |      |      |  (   |  )   |                            |  #   |Prev  |VolDn |VolUp |Next  |      |
+// |------+------+------+------+------+------+-------------.  ,------------+------+------+------+------+------+------|
+// |      |      |      |      |  [   |  ]   |      |      |  |      |     |  &   |Left  |Down  | Up   |Right |      |
+// |------+------+------+------+------+------+------+------|  |------+----+------+------+------+------+------+------|
+// |      |      |  *   |  `   |  \   |  =   |      |      |  |      |     |  $   |      |      |      |      |      |
+// `----------------------------------------+------+------+--|  |--+------+------+-----------------------------------------'
+//                                   |      |      |      |      |      |      |      |      |
+//                                   `--------------------+------+------+------'
+
+// Raise Layer:
+// ,-----------------------------------------.                              ,-----------------------------------------.
+// | Boot |  F1  |  F2  |  F3  |  F4  |  F5  |                            |  F6  |  7   |  8   |  9   | F10  | Boot |
+// |------+------+------+------+------+------|                            |------+------+------+------+------+------|
+// |Reset |BT 0  |BT 1  |BT 2  |BT 3  |BT 4  |                            |      |  4   |  5   |  6   |      |Reset |
+// |------+------+------+------+------+------+-------------.  ,------------+------+------+------+------+------+------|
+// |      | USB  | BLE  |OutTog|      |      |      |      |  |      |     |      |  1   |  2   |  3   |      |      |
+// |------+------+------+------+------+------+------+------|  |------+----+------+------+------+------+------+------|
+// |      |BTClr |      |      |      |      |      |      |  |      |     |      |  0   |  .   |  :   |  -   |      |
+// `----------------------------------------+------+------+--|  |--+------+------+-----------------------------------------'
+//                                   |      |      |      |      |      |      |      |      |
+//                                   `--------------------+------+------+------'
+
 #define AS(keycode) &as LS(keycode) keycode
 / {
     chosen {
@@ -13,7 +57,7 @@
             compatible = "zmk,behavior-hold-tap";
             label = "AUTO_SHIFT";
             #binding-cells = <2>;
-            tapping_term_ms = <135>;
+            tapping_term_ms = <200>;
             quick_tap_ms = <0>;
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
@@ -32,14 +76,14 @@
         default_layer {
             label = "BASE";
             bindings = <
-                &kp ESC    &kp N1   &kp N2   &kp N3   &kp N4   &kp N5                               &kp N6   &kp N7   &kp N8    &kp N9   &kp N0    &kp MINUS
+                &kp ESC    AS(N1)   AS(N2)   AS(N3)   AS(N4)   AS(N5)                               AS(N6)   AS(N7)   AS(N8)    AS(N9)   AS(N0)    &kp MINUS
                 &kp TAB    AS(Q)    AS(W)    AS(E)    AS(R)    AS(T)                                AS(Y)    AS(U)    AS(I)     AS(O)    AS(P)     AS(LBKT)
                 &kp CAPS   AS(A)    AS(S)    AS(D)    AS(F)    AS(G)    &kp C_PP         &kp C_PP  AS(H)    AS(J)    AS(K)     AS(L)    AS(SEMI)  AS(SQT)
                 &mt LCTRL LEFT AS(Z) AS(X)   AS(C)    AS(V)    AS(B)    &kp DOWN         &kp UP    AS(N)    AS(M)    &kp COMMA &kp DOT  AS(FSLH)  &mt RCTRL RIGHT
                                             &kp LALT  &mo 1    &kp LGUI &mt LSHFT SPACE  &mt RSHFT RET &mt RGUI BSPC &mo 2    &kp RALT
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_VOL_DN C_VOL_UP>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         lower_layer {
@@ -52,7 +96,7 @@
                                             &trans    &trans    &trans    &trans          &trans   &trans   &trans   &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_VOL_DN C_VOL_UP>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         raise_layer {
@@ -65,7 +109,7 @@
                                             &trans    &trans    &trans   &trans          &trans    &trans   &trans    &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_VOL_DN C_VOL_UP>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };
