@@ -22,7 +22,7 @@
 
 // Lower Layer:
 // ,-----------------------------------------.                              ,-----------------------------------------.
-// |      |      |      |      |      |      |                            |      |      |      |      |      |      |
+// | Boot |      |      |      |      |      |                            |      |      |      |      |      |      |
 // |------+------+------+------+------+------|                            |------+------+------+------+------+------|
 // |      |      |      |      |  (   |  )   |                            |  #   |Prev  |VolDn |VolUp |Next  |      |
 // |------+------+------+------+------+------+-------------.  ,------------+------+------+------+------+------+------|
@@ -57,7 +57,7 @@
             compatible = "zmk,behavior-hold-tap";
             label = "AUTO_SHIFT";
             #binding-cells = <2>;
-            tapping_term_ms = <200>;
+            tapping_term_ms = <300>;
             quick_tap_ms = <0>;
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
@@ -89,7 +89,7 @@
         lower_layer {
             label = "LOWER";
             bindings = <
-                &trans     &trans   &trans   &trans    &trans    &trans                              &trans   &trans   &trans    &trans   &trans    &trans
+                &bootloader &trans   &trans   &trans    &trans    &trans                              &trans   &trans   &trans    &trans   &trans    &trans
                 &trans     &none    &none    &none     &kp LPAR  &kp RPAR                           &kp HASH &kp C_PREV &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT &none
                 &trans     &none    &none    &none     &kp LBKT  &kp RBKT  &trans          &trans   &kp AMPS &kp LEFT &kp DOWN  &kp UP   &kp RIGHT &none 
                 &trans     &none    &kp STAR &kp GRAVE &kp NUHS  &kp EQUAL &trans          &trans   &kp DLLR &none    &none     &none    &none     &trans
