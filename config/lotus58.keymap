@@ -62,6 +62,12 @@
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
+        gresc: grave_escape {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp ESC>, <&kp GRAVE>;
+            mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+        };
     };
 
     // Display configuration
@@ -76,11 +82,11 @@
         default_layer {
             label = "BASE";
             bindings = <
-                &kp ESC    AS(N1)   AS(N2)   AS(N3)   AS(N4)   AS(N5)                               AS(N6)   AS(N7)   AS(N8)    AS(N9)   AS(N0)    &kp MINUS
+                &gresc   AS(N1)   AS(N2)   AS(N3)   AS(N4)   AS(N5)                               AS(N6)   AS(N7)   AS(N8)    AS(N9)   AS(N0)    &kp MINUS
                 &kp TAB    AS(Q)    AS(W)    AS(E)    AS(R)    AS(T)                                AS(Y)    AS(U)    AS(I)     AS(O)    AS(P)     AS(LBKT)
                 &kp CAPS   AS(A)    AS(S)    AS(D)    AS(F)    AS(G)    &kp C_PP         &kp C_PP  AS(H)    AS(J)    AS(K)     AS(L)    AS(SEMI)  AS(SQT)
-                &mt LCTRL LEFT AS(Z) AS(X)   AS(C)    AS(V)    AS(B)    &kp DOWN         &kp UP    AS(N)    AS(M)    &kp COMMA &kp DOT  AS(FSLH)  &mt RCTRL RIGHT
-                                            &kp LALT  &mo 1    &kp LGUI &mt LSHFT SPACE  &mt RSHFT RET &mt RGUI BSPC &mo 2    &kp RALT
+                &mt LCTRL LEFT AS(Z) AS(X)   AS(C)    AS(V)    AS(B)    &kp DOWN         &kp UP    AS(N)    AS(M)    AS(COMMA) AS(DOT)  AS(FSLH)  &mt RCTRL RIGHT
+                                            &kp LALT  &mo 1    &kp LGUI &mt LSHFT SPACE  &mt RSHFT RET &kp BSPC &mo 2    &kp RALT
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -91,8 +97,8 @@
             bindings = <
                 &bootloader &trans   &trans   &trans    &trans    &trans                              &trans   &trans   &trans    &trans   &trans    &trans
                 &trans     &none    &none    &none     &kp LPAR  &kp RPAR                           &kp HASH &kp C_PREV &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT &none
-                &trans     &none    &none    &none     &kp LBKT  &kp RBKT  &trans          &trans   &kp AMPS &kp LEFT &kp DOWN  &kp UP   &kp RIGHT &none 
-                &trans     &none    &kp STAR &kp GRAVE &kp NUHS  &kp EQUAL &trans          &trans   &kp DLLR &none    &none     &none    &none     &trans
+                &trans     &none    &none    &none     AS(LBKT)  AS(RBKT)  &trans          &trans   AS(AMPS) &kp LEFT &kp DOWN  &kp UP   &kp RIGHT &none 
+                &trans     &none    &kp STAR &kp GRAVE AS(NUHS)  AS(EQUAL) &trans          &trans   AS(DLLR) &none    &none     &none    &none     &trans
                                             &trans    &trans    &trans    &trans          &trans   &trans   &trans   &trans
             >;
 
