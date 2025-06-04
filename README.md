@@ -1,5 +1,7 @@
 # Lotus 58 ZMK Configuration
 
+[![Build Status](https://github.com/darshkpatel/zmk-config/actions/workflows/build.yml/badge.svg)](https://github.com/darshkpatel/zmk-config/actions/workflows/build.yml)
+
 This repository contains my custom ZMK firmware configuration for the Lotus 58 split keyboard. The Lotus 58 is an open-source split keyboard design that offers elegant minimalism and endless customization possibilities.
 
 [Read more about it in my blog](https://darshkpatel.com/blog/lotus-58-build)
